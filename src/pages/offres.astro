@@ -1,23 +1,14 @@
 ---
 import Header from "../components/Header.astro";
 import Base from "../Layout/Base.astro";
+import Cards from "../components/Cards.astro";
 ---
 
 <Base titre="Offres">
     <h1 class="text-center text-3xl">Offres</h1>
     <p class="text-center text-xl mt-8">Découvrez nos offres</p>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-        <li class="bg-white shadow-md p-4">
-            <h2 class="text-xl">Maison de 280m2</h2>
-            <p>En plein centre de Montbéliard</p>
-            <li class="bg-white shadow-md p-4">
-                <h2 class="text-xl">Appartement de 80m2</h2>
-                <p>Appartement situe rue cuvier</p>
-            </li>
-            <li class="bg-white shadow-md p-4">
-                <h2 class="text-xl">Villa de 400m2</h2>
-                <p>Sur les hauteurs de montbéliard venez decouvrir cette villa</p>
-            </li>
-        </li>
-    </ul></Base
->
+    <Cards titreannonce="Maison de 280m2" imgannonce="/src/assets/img/maison.jpg" descriptionannonce="Maison de 280m2 avec jardin et piscine"></Cards>
+    <Cards titreannonce="Appartement de 80m2" imgannonce="/src/assets/img/appartement.jpg" descriptionannonce="Appartement situe rue cuvier"></Cards>
+    <Cards titreannonce="Villa de 400m2" imgannonce="/src/assets/img/villa.jpg" descriptionannonce="Sur les hauteurs de montbéliard venez decouvrir cette villa"></Cards>
+</Base
+
