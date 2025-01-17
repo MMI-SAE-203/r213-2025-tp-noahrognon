@@ -4,5 +4,106 @@ import Base from "../Layout/Base.astro";
 ---
 
 <Base titre="Accueil">
-	<h1 class="text-center text-3xl">Accueil</h1>
+	<h1 class="text-center text-3xl text-indigo-800 font-extrabold">
+		Montb'Habitat
+	</h1>
+	<p class="text-center text-xl mt-8 text-indigo-800 font-bold">
+		Agence immobilière depuis 1998 basé à montbéliard
+	</p>
+	<a
+		href="/offres"
+		class="flex justify-center mt-8 text-indigo-800 font-semibold hover:text-indigo-600"
+		>Découvrez nos offres</a
+	>
+	<p class="text-lg text-gray-600">
+		Votre agence immobilière de confiance à Montbéliard depuis 1998.
+	</p>
+
+	<section class="mb-12">
+		<h2 class="text-2xl font-semibold text-gray-800 mb-4">Notre mission</h2>
+		<p class="text-gray-600 mb-6">
+			Nous vous accompagnons dans tous vos projets immobiliers avec
+			professionnalisme, proximité et transparence. Que vous souhaitiez
+			acheter, vendre, louer ou gérer votre patrimoine immobilier, notre
+			équipe est là pour vous aider à chaque étape.
+		</p>
+		<ul class="list-disc list-inside text-gray-600 space-y-2">
+			<li>
+				<strong>Acheter :</strong> trouvez la maison ou l’appartement de
+				vos rêves.
+			</li>
+			<li>
+				<strong>Vendre :</strong> bénéficiez des meilleures conditions pour
+				votre bien.
+			</li>
+			<li>
+				<strong>Louer :</strong> trouvez un logement qui correspond parfaitement
+				à vos attentes.
+			</li>
+			<li>
+				<strong>Gérer :</strong> confiez-nous la gestion de votre patrimoine
+				immobilier.
+			</li>
+		</ul>
+	</section>
+
+	<section class="mb-12">
+		<h2 class="text-2xl font-semibold text-gray-800 mb-4">
+			Pourquoi choisir Montb'Habitat ?
+		</h2>
+		<ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600">
+			<li class="p-6 bg-white rounded-lg shadow-md">
+				<h3 class="text-xl font-medium text-blue-600 mb-2">
+					Une expertise locale
+				</h3>
+				<p>
+					Notre connaissance approfondie de Montbéliard et ses
+					environs garantit des conseils sur mesure.
+				</p>
+			</li>
+			<li class="p-6 bg-white rounded-lg shadow-md">
+				<h3 class="text-xl font-medium text-blue-600 mb-2">
+					Un accompagnement complet
+				</h3>
+				<p>
+					Nous vous guidons à chaque étape, de l'estimation à la
+					signature finale.
+				</p>
+			</li>
+			<li class="p-6 bg-white rounded-lg shadow-md">
+				<h3 class="text-xl font-medium text-blue-600 mb-2">
+					Une relation de confiance
+				</h3>
+				<p>
+					Nous privilégions la transparence et l’éthique dans toutes
+					nos interactions.
+				</p>
+			</li>
+			<li class="p-6 bg-white rounded-lg shadow-md">
+				<h3 class="text-xl font-medium text-blue-600 mb-2">
+					Un large choix de biens
+				</h3>
+				<p>
+					Nous proposons des biens adaptés à tous les budgets et
+					projets.
+				</p>
+			</li>
+		</ul>
+	</section>
+
+	<section class="text-center">
+		<h2 class="text-2xl font-semibold text-gray-800 mb-4">
+			Contactez-nous !
+		</h2>
+		<p class="text-gray-600 mb-6">
+			Rendez-nous visite à Montbéliard ou contactez notre équipe pour
+			discuter de votre projet immobilier.
+		</p>
+		<a
+			href="/contact"
+			class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition"
+		>
+			Nous Contacter
+		</a>
+	</section>
 </Base>

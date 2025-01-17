@@ -5,10 +5,21 @@ import Cards from "../components/Cards.astro";
 ---
 
 <Base titre="Offres">
-    <h1 class="text-center text-3xl">Offres</h1>
-    <p class="text-center text-xl mt-8">Découvrez nos offres</p>
-    <Cards titreannonce="Maison de 280m2" imgannonce="/src/assets/img/maison.jpg" descriptionannonce="Maison de 280m2 avec jardin et piscine"></Cards>
-    <Cards titreannonce="Appartement de 80m2" imgannonce="/src/assets/img/appartement.jpg" descriptionannonce="Appartement situe rue cuvier"></Cards>
-    <Cards titreannonce="Villa de 400m2" imgannonce="/src/assets/img/villa.jpg" descriptionannonce="Sur les hauteurs de montbéliard venez decouvrir cette villa"></Cards>
-</Base
-
+    <h1 class="text-center text-3xl text-indigo-800 font-bold">Offres</h1>
+    <p class="text-center text-xl mt-8 text-indigo-800 font-semibold">Découvrez nos offres</p>
+    <Cards
+        titreannonce="Maison de 280m2"
+        imgannonce="/src/assets/img/maison.jpg"
+        descriptionannonce="Maison de 280m2 avec jardin et piscine"
+    />
+    <Cards
+        titreannonce="Appartement de 80m2"
+        imgannonce="/src/assets/img/appartement.jpg"
+        descriptionannonce="Appartement situe rue cuvier"
+    />
+    <Cards
+        titreannonce="Villa de 400m2"
+        imgannonce="/src/assets/img/villa.jpg"
+        descriptionannonce="Sur les hauteurs de montbéliard venez decouvrir cette villa"
+    />
+</Base>
