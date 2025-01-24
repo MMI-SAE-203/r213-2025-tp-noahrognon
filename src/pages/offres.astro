@@ -2,24 +2,51 @@
 import Header from "../components/Header.astro";
 import Base from "../Layout/Base.astro";
 import Cards from "../components/Cards.astro";
+const offres = [
+    {
+        adresse: "2821 Lake Sevilla, Palm Harbor, TX",
+        favori: true,
+        id: "64l3n8nar836i5j",
+        nbChambres: 4,
+        nbSdb: 2,
+        nomMaison: "Beverly Springfield",
+        prix: 2700,
+        surface: 45,
+        imgUrl: "image1.png",
+    },
+    {
+        adresse: "2699 Green Valley, Highland Lake",
+        favori: true,
+        id: "lo831zeg10hpm9y",
+        nbChambres: 4,
+        nbSdb: 2,
+        nomMaison: "Palm Harbor",
+        prix: 2095,
+        surface: 42,
+        imgUrl: "image2.png",
+    },
+    {
+        adresse: "909 Woodland St, Michigan, IN",
+        favori: false,
+        id: "s1zuhj19x8eb242",
+        nbChambres: 4,
+        nbSdb: 3,
+        nomMaison: "Faulkner Ave",
+        prix: 4550,
+        surface: 80,
+        imgUrl: "image3.png",
+    },
+];
 ---
 
 <Base titre="Offres">
     <h1 class="text-center text-3xl text-indigo-800 font-bold">Offres</h1>
-    <p class="text-center text-xl mt-8 text-indigo-800 font-semibold">Découvrez nos offres</p>
-    <Cards
-        titreannonce="Maison de 280m2"
-        imgannonce="/src/assets/img/maison.jpg"
-        descriptionannonce="Maison de 280m2 avec jardin et piscine"
-    />
-    <Cards
-        titreannonce="Appartement de 80m2"
-        imgannonce="/src/assets/img/appartement.jpg"
-        descriptionannonce="Appartement situe rue cuvier"
-    />
-    <Cards
-        titreannonce="Villa de 400m2"
-        imgannonce="/src/assets/img/villa.jpg"
-        descriptionannonce="Sur les hauteurs de montbéliard venez decouvrir cette villa"
-    />
+    <p class="text-center text-xl mt-8 text-indigo-800 font-semibold">
+        Découvrez nos offres
+    </p>
+    <div>
+        <ul>
+            {offres.map((of) => <li>{of.nomMaison}</li>)}
+        </ul>
+    </div>
 </Base>
