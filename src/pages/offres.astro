@@ -2,41 +2,19 @@
 import Header from "../components/Header.astro";
 import Base from "../Layout/Base.astro";
 import Cards from "../components/Cards.astro";
-const offres = [
-    {
-        adresse: "2821 Lake Sevilla, Palm Harbor, TX",
-        favori: true,
-        id: "64l3n8nar836i5j",
-        nbChambres: 4,
-        nbSdb: 2,
-        nomMaison: "Beverly Springfield",
-        prix: 2700,
-        surface: 45,
-        imgUrl: "/src/assets/img/image1.jpg",
-    },
-    {
-        adresse: "2699 Green Valley, Highland Lake",
-        favori: true,
-        id: "lo831zeg10hpm9y",
-        nbChambres: 4,
-        nbSdb: 2,
-        nomMaison: "Palm Harbor",
-        prix: 2095,
-        surface: 42,
-        imgUrl: "/src/assets/img/image2.jpg",
-    },
-    {
-        adresse: "909 Woodland St, Michigan, IN",
-        favori: false,
-        id: "s1zuhj19x8eb242",
-        nbChambres: 4,
-        nbSdb: 3,
-        nomMaison: "Faulkner Ave",
-        prix: 4550,
-        surface: 80,
-        imgUrl: "/src/assets/img/image3.jpg",
-    },
-];
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090"); // Remplace par ton URL PocketBase
+
+const offres = await pb.collection("maison").getFullList({
+    sort: "-created",
+});
+
+offres.forEach((maison) => {
+    maison.imageUrl = pb.files.getURL(maison, maison.image);
+});
+
+console.log(offres);
 ---
 
 <Base titre="Offres">
@@ -44,8 +22,65 @@ const offres = [
     <p class="text-center text-xl mt-8 text-indigo-800 font-semibold">
         Découvrez nos offres
     </p>
+    <div x-data="{ vueGrille: true }" class="text-center my-4">
+        <button
+            @click="vueGrille = true"
+            :class="{ 'bg-blue-700 text-white': vueGrille, 'bg-gray-300': !vueGrille }"
+            class="px-4 py-2 rounded-l border border-blue-700"
+        >
+            Vue Grille
+        </button>
+        <button
+            @click="vueGrille = false"
+            :class="{ 'bg-blue-700 text-white': !vueGrille, 'bg-gray-300': vueGrille }"
+            class="px-4 py-2 rounded-r border border-blue-700"
+        >
+            Vue Liste
+        </button>
+    </div>
+    <div>
+        
+        <ul
+            x-show="vueGrille"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"
+        >
+            {offres.map((offre) => <Cards {...offre} />)}
+        </ul>
+
+        
+        <ul x-show="!vueGrille" class="space-y-4 mt-8">
+            {
+                offres.map((offre) => (
+                    <li class="bg-white shadow-md rounded-lg p-4 border flex items-center">
+                        <img
+                            src={offre.imageUrl}
+                            alt="Image de l'annonce"
+                            class="w-24 h-24 object-cover rounded mr-4"
+                        />
+                        <div>
+                            <h2 class="text-xl font-bold text-indigo-800">
+                                {offre.nomMaison}
+                            </h2>
+                            <p class="text-gray-600">{offre.adresse}</p>
+                            <p class="text-gray-600">
+                                {offre.nbChambres} chambres, {offre.nbSdb}{" "}
+                                salles de bain
+                            </p>
+                            <p class="text-gray-800 font-semibold">
+                                {offre.prix} € / mois - {offre.surface} m²
+                            </p>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+
     <div x-data="{ afficherfavori: false }">
-        <button @click="afficherfavori = !afficherfavori" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button
+            @click="afficherfavori = !afficherfavori"
+            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
             <span x-show="!afficherfavori">Afficher les favoris</span>
             <span x-show="afficherfavori">Afficher tout</span>
         </button>
