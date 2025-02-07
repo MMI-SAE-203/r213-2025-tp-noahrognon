@@ -1,0 +1,50 @@
+---
+import { getMaisons } from "../../../backend.mjs";
+import Base from "../../../layout/Base.astro";
+export const prerender = false;
+
+const { prix } = Astro.params;
+
+// Vérifier et convertir la valeur du prix
+const prixMax = prix ? parseInt(prix, 10) : 200000;
+console.log("Valeur de prix utilisée :", prixMax);
+
+const maisonsRaw = await getMaisons();
+console.log("Toutes les maisons :", maisonsRaw);
+
+// Filtrage des maisons
+const maisons = maisonsRaw.filter((m) => {
+    console.log(`Vérification maison : ${m.nom_maison}, Prix: ${m.prix}`);
+    return parseInt(m.prix, 10) <= prixMax; // Vérifie si le prix est inférieur ou égal
+});
+
+console.log("Maisons après filtrage :", maisons);
+---
+
+<Base titre={`Maisons avec un prix ≤ ${prixMax} €`}>
+    {
+        maisons.length > 0 ? (
+            <ul>
+                {maisons.map((maison) => (
+                    <li>
+                        <a href={`/offres/${maison.id}`}>
+                            {maison.nom_maison} - {maison.prix} €
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>Aucune maison trouvée</p>
+        )
+    }
+    <button
+        class="
+        px-4
+        py-2
+        bg-blue-500
+        text-white
+        rounded
+        cursor-pointer"
+        onclick="history.back()">Retour en arrière</button
+    >
+</Base>

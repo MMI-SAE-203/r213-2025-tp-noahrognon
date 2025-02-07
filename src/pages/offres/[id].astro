@@ -1,0 +1,19 @@
+---
+import { getOffre } from "../../backend.mjs";
+import Base from "../../Layout/Base.astro";
+export const prerender = false;
+const { id } = Astro.params;
+const offre = await getOffre(id);
+---
+
+<Base titre={offre.nomMaison}>
+    <h2>{offre.nomMaison}</h2>
+    <button onclick="history.back()">Retour en arrière</button>
+    <ul>
+        <li>{offre.adresse}</li>
+        <li>Adresse : {offre.adresse}</li>
+        <li>Surface : {offre.surface} m²</li>
+        <li>Prix : {offre.prix} €</li>
+        <li><img src={offre.imageUrl} alt={offre.nomMaison} /></li>
+    </ul>
+</Base>

@@ -18,77 +18,61 @@ console.log(offres);
 ---
 
 <Base titre="Offres">
-    <h1 class="text-center text-3xl text-indigo-800 font-bold">Offres</h1>
+    <h1 class="text-center text-3xl text-indigo-800 font-bold mt-10">Offres</h1>
     <p class="text-center text-xl mt-8 text-indigo-800 font-semibold">
         Découvrez nos offres
     </p>
-    <div x-data="{ vueGrille: true }" class="text-center my-4">
+    <div x-data="{ }" class="text-center my-4"></div>
+
+    <div x-data="{ afficherfavori: false, vueGrille: true }">
         <button
             @click="vueGrille = true"
             :class="{ 'bg-blue-700 text-white': vueGrille, 'bg-gray-300': !vueGrille }"
-            class="px-4 py-2 rounded-l border border-blue-700"
+            class="px-4 py-2 rounded-l border border-blue-700 transition-all"
         >
-            Vue Grille
+            Vue liste
         </button>
         <button
             @click="vueGrille = false"
             :class="{ 'bg-blue-700 text-white': !vueGrille, 'bg-gray-300': vueGrille }"
-            class="px-4 py-2 rounded-r border border-blue-700"
+            class="px-4 py-2 rounded-r border border-blue-700 transition-all"
         >
-            Vue Liste
+            Vue grille
         </button>
-    </div>
-    <div>
-        
-        <ul
-            x-show="vueGrille"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"
+        <a
+            href="/offres/surface/80"
+            class="text-blue-600 hover:underline mt-4 block"
+            >Voir les maisons de plus de 80m²</a
         >
-            {offres.map((offre) => <Cards {...offre} />)}
-        </ul>
+        <a
+            href="/offres/prix/200000"
+            class="text-blue-600 hover:underline mt-4 block"
+            >Voir les maisons à moins de 200 000€</a
+        >
+        <a
+            href="/offres/prix/400000/1000000"
+            class="text-blue-600 hover:underline mt-4 block"
+            >Voir les maisons entre 400 000€ et 1 000 000€</a
+        >
 
-        
-        <ul x-show="!vueGrille" class="space-y-4 mt-8">
-            {
-                offres.map((offre) => (
-                    <li class="bg-white shadow-md rounded-lg p-4 border flex items-center">
-                        <img
-                            src={offre.imageUrl}
-                            alt="Image de l'annonce"
-                            class="w-24 h-24 object-cover rounded mr-4"
-                        />
-                        <div>
-                            <h2 class="text-xl font-bold text-indigo-800">
-                                {offre.nomMaison}
-                            </h2>
-                            <p class="text-gray-600">{offre.adresse}</p>
-                            <p class="text-gray-600">
-                                {offre.nbChambres} chambres, {offre.nbSdb}{" "}
-                                salles de bain
-                            </p>
-                            <p class="text-gray-800 font-semibold">
-                                {offre.prix} € / mois - {offre.surface} m²
-                            </p>
-                        </div>
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
-
-    <div x-data="{ afficherfavori: false }">
         <button
             @click="afficherfavori = !afficherfavori"
-            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
         >
             <span x-show="!afficherfavori">Afficher les favoris</span>
             <span x-show="afficherfavori">Afficher tout</span>
         </button>
 
-        <div x-show="!afficherfavori">
+        <div
+            x-show="!afficherfavori"
+            :class="{ 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8': !vueGrille }"
+        >
             {offres.map((offre) => <Cards {...offre} />)}
         </div>
-        <div x-show="afficherfavori">
+        <div
+            x-show="afficherfavori"
+            :class="{ 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8': !vueGrille }"
+        >
             {offres.map((offre) => offre.favori && <Cards {...offre} />)}
         </div>
     </div>

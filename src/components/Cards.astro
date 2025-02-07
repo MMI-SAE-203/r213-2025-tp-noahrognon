@@ -1,10 +1,12 @@
 ---
-const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl } =
+const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl, id } =
     Astro.props;
 ---
 
-<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-    <li class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out">
+<ul class="">
+    <li
+        class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out"
+    >
         <h2 class="text-2xl font-bold text-indigo-800 p-4">{nomMaison}</h2>
         <img
             src={imageUrl}
@@ -29,8 +31,8 @@ const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl } =
                     <span x-show="!favori">Ajouter aux favoris</span>
                     <span x-show="favori">Retirer des favoris</span>
                 </button>
+                <a href={`/offres/${id}`}>Voir plus</a>
             </div>
         </div>
     </li>
 </ul>
-
