@@ -31,7 +31,16 @@ const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl, id } =
                     <span x-show="!favori">Ajouter aux favoris</span>
                     <span x-show="favori">Retirer des favoris</span>
                 </button>
-                <a href={`/offres/${id}`}>Voir plus</a>
+
+                <a
+                    class="px-4
+        py-2
+        bg-blue-500
+        text-white
+        rounded
+        cursor-pointer"
+                    href={`/offres/${id}`}>Voir plus</a
+                >
             </div>
         </div>
     </li>
