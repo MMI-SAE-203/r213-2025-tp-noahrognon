@@ -59,6 +59,7 @@ console.log(offres);
 			</li>
 		</ul>
 	</section>
+	<h2 class="font-c text-blue-600">Annonces favorites</h2>
 	<div x-show="afficherfavori">
 		{offres.map((offre) => offre.favori && <Cards {...offre} />)}
 	</div>
