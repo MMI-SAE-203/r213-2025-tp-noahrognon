@@ -1,5 +1,5 @@
 ---
-const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl, id } =
+const { nomMaison, adresse, nbchambres, nbSdb, prix, surface, imageUrl, id } =
     Astro.props;
 ---
 
@@ -15,7 +15,7 @@ const { nomMaison, adresse, nbChambres, nbSdb, prix, surface, imageUrl, id } =
         />
         <div class="p-4">
             <p class="text-gray-600 mt-2">{adresse}</p>
-            <p class="text-gray-600 mt-2">{nbChambres} chambres</p>
+            <p class="text-gray-600 mt-2">{nbchambres} chambres</p>
             <p class="text-gray-600 mt-2">{nbSdb} salles de bain</p>
             <p class="text-gray-800 font-semibold mt-2">{prix} €/ par mois</p>
             <p class="text-gray-600 mt-2">{surface} m²</p>

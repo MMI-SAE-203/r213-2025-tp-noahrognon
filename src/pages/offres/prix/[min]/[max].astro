@@ -1,11 +1,11 @@
 ---
 import { getMaisons } from "../../../../backend.mjs";
-import Base from "../../../../layout/Base.astro";
+import Base from "../../../../Layout/Base.astro";
 export const prerender = false;
 
 const { min, max } = Astro.params;
 
-// Vérifier et convertir les valeurs
+
 const prixMin = min ? parseInt(min, 10) : 400000;
 const prixMax = max ? parseInt(max, 10) : 1000000;
 console.log(`Valeurs utilisées : min = ${prixMin}, max = ${prixMax}`);
@@ -13,7 +13,6 @@ console.log(`Valeurs utilisées : min = ${prixMin}, max = ${prixMax}`);
 const maisonsRaw = await getMaisons();
 console.log("Toutes les maisons :", maisonsRaw);
 
-// Filtrage des maisons
 const maisons = maisonsRaw.filter((m) => {
     console.log(`Vérification maison : ${m.nom_maison}, Prix: ${m.prix}`);
     return parseInt(m.prix, 10) >= prixMin && parseInt(m.prix, 10) <= prixMax;
@@ -46,7 +45,7 @@ console.log("Maisons après filtrage :", maisons);
         bg-blue-500
         text-white
         rounded
-        cursor-pointer"
+        cursor-pointer">
         onclick="history.back()">Retour en arrière</button
     ></Base
 >
