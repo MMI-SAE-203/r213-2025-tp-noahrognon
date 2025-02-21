@@ -1,0 +1,50 @@
+---
+const { favoris } = Astro.props;
+---
+
+<div x-data=`{favoris: ${JSON.stringify(favoris)}, index: 0 }` class="mt-8">
+    <h2 class="text-3xl font-bold text-center text-indigo-800">Mes favoris</h2>
+
+    <template x-if="favoris.length > 0">
+        <div class="flex flex-col items-center mt-4">
+            <h3 class="text-2xl font-semibold text-gray-800">
+                <span x-text="favoris[index].nomMaison"></span>
+            </h3>
+
+            <img
+                x-bind:src="favoris[index].imageUrl"
+                alt="Maison favorite"
+                class="w-full max-w-md h-64 object-cover mt-4 rounded-lg shadow-lg"
+            />
+
+            <p class="text-gray-600 mt-2">
+                <span x-text="favoris[index].adresse"></span>
+            </p>
+            <p class="text-gray-800 font-semibold mt-2">
+                Prix : <span x-text="favoris[index].prix"></span> €
+            </p>
+
+            <!-- Boutons de navigation -->
+            <div class="flex gap-4 mt-4">
+                <button
+                    @click="index = (index === 0 ? favoris.length - 1 : index - 1)"
+                    class="bg-gray-800 text-white px-4 py-2 rounded"
+                >
+                    Précédent
+                </button>
+                <button
+                    @click="index = (index === favoris.length - 1 ? 0 : index + 1)"
+                    class="bg-gray-800 text-white px-4 py-2 rounded"
+                >
+                    Suivant
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template x-if="favoris.length === 0">
+        <p class="text-center text-gray-500 mt-4">
+            Aucune maison ajoutée en favori.
+        </p>
+    </template>
+</div>

@@ -1,9 +1,18 @@
 ---
-const { nomMaison, adresse, nbchambres, nbSdb, prix, surface, imageUrl, id } =
-    Astro.props;
+const {
+    nomMaison,
+    adresse,
+    nbchambres,
+    nbSdb,
+    prix,
+    surface,
+    imageUrl,
+    id,
+    favori,
+} = Astro.props;
 ---
 
-<ul class="">
+<ul>
     <li
         class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out"
     >
@@ -13,35 +22,46 @@ const { nomMaison, adresse, nbchambres, nbSdb, prix, surface, imageUrl, id } =
             alt="image de l'annonce"
             class="w-full h-48 object-cover mt-4"
         />
+
         <div class="p-4">
             <p class="text-gray-600 mt-2">{adresse}</p>
             <p class="text-gray-600 mt-2">{nbchambres} chambres</p>
             <p class="text-gray-600 mt-2">{nbSdb} salles de bain</p>
             <p class="text-gray-800 font-semibold mt-2">{prix} €/ par mois</p>
             <p class="text-gray-600 mt-2">{surface} m²</p>
-            <div
-                x-data="{ favori: false }"
-                :class="{ 'bg-blue-200': favori }"
-                class="p-4 border rounded mt-4"
-            >
-                <button
-                    @click="favori = !favori"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    <span x-show="!favori">Ajouter aux favoris</span>
-                    <span x-show="favori">Retirer des favoris</span>
-                </button>
 
-                <a
-                    class="px-4
-        py-2
-        bg-blue-500
-        text-white
-        rounded
-        cursor-pointer"
-                    href={`/offres/${id}`}>Voir plus</a
+            <!-- Gestion des favoris avec Alpine.js -->
+            <div
+                x-data={`{favori: ${favori}, clickFavori() { this.favori = !this.favori; setFavori(${JSON.stringify({ id, favori })}); } }`}
+                class="relative mt-4"
+            >
+                <!-- Bouton Favori avec image -->
+                <button
+                    @click="clickFavori"
+                    class="absolute bottom-0 left-0 p-2"
                 >
+                    <img
+                        :src="favori ? '/favorite_filled.png' : '/favorite.png'"
+                        alt="Favorite Icon"
+                        class="h-8 w-10 absolute bottom- left-40"
+                    />
+                </button>
             </div>
+
+            <!-- Lien pour voir plus de détails -->
+            <a
+                href={`/offres/${id}`}
+                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer inline-block"
+            >
+                Voir plus
+            </a>
         </div>
     </li>
 </ul>
+
+<!-- Import de la fonction pour gérer les favoris -->
+<script>
+    //@ts-nocheck
+    import { setFavori } from "../backend.mjs";
+    window.setFavori = setFavori;
+</script>

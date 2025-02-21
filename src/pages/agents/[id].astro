@@ -1,0 +1,38 @@
+---
+import { getAgent } from "../../backend.mjs";
+import Base from "../../Layout/Base.astro";
+
+export const prerender = false;
+const { id } = Astro.params;
+const agent = await getAgent(id);
+---
+
+<Base titre={`Offres de l'agent`}>
+    <h2 class="text-2xl font-bold">Offres disponibles</h2>
+
+    <button
+        class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+        onclick="history.back()"
+        >Retour en arrière
+    </button>
+
+    <ul class="mt-4 space-y-4">
+        
+                <li key={agent.id} class="p-4 border rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">{agent.nom}</h3>
+                    <h3 class="text-lg font-semibold">{agent.prenom}</h3>
+                    <ul>
+                        <li>Adresse : {agent.email}</li>
+                        <li>Surface : {agent.description} m²</li>
+                    
+                            <img
+                                src={agent.imageUrl}
+                                alt={agent.nom}
+                                class="w-full max-w-md rounded"
+                            />
+                        </li>
+                    </ul>
+                </li>
+           
+    </ul>
+</Base>

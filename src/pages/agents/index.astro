@@ -1,0 +1,31 @@
+---
+import Base from "../../Layout/Base.astro";
+import { allAgents } from "../../backend.mjs";
+export const prerender = false;
+const agents = await allAgents();
+---
+
+<Base>
+    <h1 class="text-2xl font-bold">Nos Agents</h1>
+
+    <ul class="mt-4 space-y-2">
+        {
+            agents.map((agent) => (
+                <li key={agent.id} class="p-4 border rounded-lg shadow">
+                    <a
+                        href={`/agents/${agent.id}`}
+                        class="text-blue-500 hover:underline text-lg"
+                    >
+                        {agent.nom}
+                    </a>
+                    <p class="text-sm text-gray-600">{agent.email}</p>
+                    <img
+                        src={agent.imageUrl}
+                        alt="image de l'annonce"
+                        class="w-20 h-20 object-cover mt-4 rounded-8"
+                    />
+                </li>
+            ))
+        }
+    </ul>
+</Base>
