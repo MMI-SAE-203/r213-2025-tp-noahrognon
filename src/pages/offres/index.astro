@@ -3,18 +3,40 @@ import Header from "../../components/Header.astro";
 import Base from "../../Layout/Base.astro";
 import Cards from "../../components/Cards.astro";
 import PocketBase from "pocketbase";
+import { filterByPrix, getOffres } from "../../backend.mjs";
 
 const pb = new PocketBase("http://127.0.0.1:8090"); // Remplace par ton URL PocketBase
 
-const offres = await pb.collection("maison").getFullList({
-    sort: "-created",
-});
+// const offres = await pb.collection("maison").getFullList({
+//     sort: "-created",
+// });
 
-offres.forEach((maison) => {
-    maison.imageUrl = pb.files.getURL(maison, maison.image);
-});
+// offres.forEach((maison) => {
+//     maison.imageUrl = pb.files.getURL(maison, maison.image);
+// });
+// console.log(offres);
 
-console.log(offres);
+let message = "";
+let offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix") as string);
+    const maxPrix = parseInt(data.get("maxPrix") as string);
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        offres = await filterByPrix(minPrix, maxPrix);
+        if (offres.length === 0) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+        offres = await getOffres();
+    }
+} else {
+    offres = await getOffres();
+}
 ---
 
 <Base titre="Offres">
@@ -39,6 +61,11 @@ console.log(offres);
         >
             Vue grille
         </button>
+        <form action="/offres" method="POST" class="flex flex-col items-center space-y-4 mt-4">
+            <input type="number" name="minPrix" placeholder="Prix minimum" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="number" name="maxPrix" placeholder="Prix maximum" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="submit" value="Filtrer par prix" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition-all cursor-pointer" />
+        </form>
         <a
             href="/offres/surface/80"
             class="text-blue-600 hover:underline mt-4 block"
